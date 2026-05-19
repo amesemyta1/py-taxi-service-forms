@@ -2,11 +2,13 @@
 
 {% block content %}
   <h1>Delete Car</h1>
-  <p>Are you sure you want to delete the car: <strong>{{ object }}</strong>?</p>
+  <p>Are you sure you want to delete the car: <strong>{{ object.model }}</strong>?</p>
 
   <form action="" method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Confirm Delete</button>
-    <a href="{% url 'taxi:car-list' %}" class="btn btn-secondary">Cancel</a>
+    <a href="{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}
+      {% else %}{% url 'taxi:car-list' %}
+    {% endif %}" class="btn btn-secondary">Cancel</a>
   </form>
 {% endblock %}
